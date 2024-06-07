@@ -1,6 +1,6 @@
 {
   "name": "ypkg",
-  "version": "0.0.3",
+  "version": "0.0.6",
   "description": "a simple c++ package downloader",
   "main": "src/main.js",
   "bin": {
@@ -24,5 +24,6 @@
   "devDependencies": {
     "prettier": "3.3.1"
   },
-  "type": "module"
+  "type": "module",
+  "repository": "git://github.com/flying-dude/ypkg.git"
 }
