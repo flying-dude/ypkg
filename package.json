@@ -1,0 +1,29 @@
+{
+  "name": "ypkg",
+  "version": "0.0.1",
+  "description": "a simple c++ package downloader",
+  "main": "src/main.js",
+  "bin": {
+    "ypkg": "src/main.js"
+  },
+  "scripts": {
+    "format": "prettier --write \"**/*.{js,ts,json}\" --ignore-path .gitignore"
+  },
+  "keywords": [],
+  "author": "Kai Wallisch <dude@flyspace.dev>",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "@std/toml": "npm:@jsr/std__toml@^1.0.0-rc.1",
+    "chalk": "^5.3.0",
+    "nodejs-file-downloader": "^4.12.2",
+    "semver": "^7.6.2",
+    "tmp": "^0.2.3",
+    "toml": "^3.0.0",
+    "xdg-portable": "^10.6.0",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "prettier": "3.3.1"
+  },
+  "type": "module"
+}
