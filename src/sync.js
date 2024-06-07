@@ -1,3 +1,5 @@
+import TOML from 'smol-toml'
+
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 
@@ -5,7 +7,6 @@ const xdg = require("xdg-portable/cjs");
 const fs = require("node:fs");
 const path = require("node:path");
 const child_process = require("child_process");
-const toml = require("toml");
 
 const git_dir = path.join(xdg.cache(), "ypkg", "ypkg-repo");
 const allowed_signers_file = path.join(xdg.cache(), "ypkg", "allowed_signers");
@@ -63,7 +64,7 @@ export function get_packages(pkgs) {
   for (const pkg of pkgs) {
     const toml_file = path.join(git_dir, "pkg", pkg + ".toml");
     if (fs.existsSync(toml_file))
-      found[pkg] = toml.parse(fs.readFileSync(toml_file));
+      found[pkg] = TOML.parse(fs.readFileSync(toml_file, {encoding: "utf8"}));
     else not_found.push(pkg);
   }
 

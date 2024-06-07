@@ -1,5 +1,6 @@
 import { get_project_folder } from "./project.js";
 import { spawn } from "./sync.js";
+import TOML from 'smol-toml'
 
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
@@ -7,7 +8,6 @@ const require = createRequire(import.meta.url);
 const crypto = require("crypto");
 const fs = require("node:fs");
 const path = require("node:path");
-const toml = require("toml");
 const tmp = require("tmp");
 const xdg = require("xdg-portable/cjs");
 const Downloader = require("nodejs-file-downloader");
@@ -35,7 +35,7 @@ export async function fetch() {
 
   const project_folder = get_project_folder();
   const toml_file = path.join(project_folder, "ypkg.toml");
-  const toml_data = toml.parse(fs.readFileSync(toml_file));
+  const toml_data = TOML.parse(fs.readFileSync(toml_file, {encoding: "utf8"}));
 
   const package_folder = path.join(project_folder, "packages");
   if (!fs.existsSync(package_folder)) fs.mkdirSync(package_folder);

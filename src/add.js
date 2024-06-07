@@ -1,5 +1,6 @@
 import { get_project_folder } from "./project.js";
 import { get_packages } from "./sync.js";
+import TOML from 'smol-toml'
 
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
@@ -8,15 +9,12 @@ const fs = require("node:fs");
 const path = require("node:path");
 const semver = require("semver");
 
-const toml = require("toml"); // this can only parse but not stringify
-import * as toml2 from "@std/toml"; // this can stringify but crashes on parse
-
 export function add(argv) {
   const pkgs = get_packages(argv.pkg);
 
   const project_folder = get_project_folder();
   const toml_file = path.join(project_folder, "ypkg.toml");
-  const toml_data = toml.parse(fs.readFileSync(toml_file));
+  const toml_data = TOML.parse(fs.readFileSync(toml_file, {encoding: "utf8"}));
 
   for (const [pkg_name, pkg_data] of Object.entries(pkgs)) {
     var max_version = undefined;
@@ -32,5 +30,5 @@ export function add(argv) {
     toml_data.packages[pkg_name] = max_version_data;
   }
 
-  fs.writeFileSync(toml_file, toml2.stringify(toml_data).trimStart());
+  fs.writeFileSync(toml_file, TOML.stringify(toml_data));
 }
