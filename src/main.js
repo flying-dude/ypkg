@@ -46,7 +46,7 @@ try {
         "download and extract packages",
         (yargs) => {},
         async function (argv) {
-          await fetch(argv);
+          await fetch(argv.pkg);
         },
       )
       .command(

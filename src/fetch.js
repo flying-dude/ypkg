@@ -31,9 +31,9 @@ export function get_extension(url) {
 }
 
 // download and extract all packages specified in ypkg.toml
-export async function fetch(argv) {
-  argv.pkg = argv.pkg ?? [];
-  add(argv.pkg);
+export async function fetch(pkg) {
+  pkg = pkg ?? [];
+  add(pkg);
   fs.mkdirSync(downloads_folder, { recursive: true });
 
   const project_folder = get_project_folder();
@@ -53,7 +53,7 @@ export async function fetch(argv) {
     for (const [pkg_name, pkg_data] of Object.entries(toml_data.packages)) {
       // check if current package is in list of packages. if not, skip.
       // fetch all packages, if list of packages is empty.
-      if (argv.pkg.length > 0 && !argv.pkg.includes(pkg_name)) continue;
+      if (pkg.length > 0 && !pkg.includes(pkg_name)) continue;
 
       const unpack_into = path.join(package_folder, pkg_name);
       if (fs.existsSync(unpack_into)) continue;
