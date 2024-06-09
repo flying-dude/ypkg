@@ -1,6 +1,6 @@
 import { add } from "./add.js";
 import { get_project_folder } from "./project.js";
-import TOML from 'smol-toml'
+import TOML from "smol-toml";
 
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
@@ -15,7 +15,9 @@ export function update(argv) {
 
     const project_folder = get_project_folder();
     const toml_file = path.join(project_folder, "ypkg.toml");
-    const toml_data = TOML.parse(fs.readFileSync(toml_file, {encoding: "utf8"}));
+    const toml_data = TOML.parse(
+      fs.readFileSync(toml_file, { encoding: "utf8" }),
+    );
 
     for (const [pkg_name, _] of Object.entries(toml_data.packages)) {
       argv.pkg.push(pkg_name);

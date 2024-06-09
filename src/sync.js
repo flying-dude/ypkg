@@ -1,4 +1,4 @@
-import TOML from 'smol-toml'
+import TOML from "smol-toml";
 
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
@@ -65,7 +65,7 @@ export function get_packages(pkgs) {
   for (const pkg of pkgs) {
     const toml_file = path.join(git_dir, "pkg", pkg + ".toml");
     if (fs.existsSync(toml_file))
-      found[pkg] = TOML.parse(fs.readFileSync(toml_file, {encoding: "utf8"}));
+      found[pkg] = TOML.parse(fs.readFileSync(toml_file, { encoding: "utf8" }));
     else not_found.push(pkg);
   }
 

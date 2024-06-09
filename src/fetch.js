@@ -1,7 +1,7 @@
 import { get_project_folder } from "./project.js";
 import { spawn } from "./sync.js";
 import { add } from "./add.js";
-import TOML from 'smol-toml'
+import TOML from "smol-toml";
 
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
@@ -32,13 +32,15 @@ export function get_extension(url) {
 
 // download and extract all packages specified in ypkg.toml
 export async function fetch(argv) {
-  argv.pkg = argv.pkg ?? []
-  add(argv.pkg)
+  argv.pkg = argv.pkg ?? [];
+  add(argv.pkg);
   fs.mkdirSync(downloads_folder, { recursive: true });
 
   const project_folder = get_project_folder();
   const toml_file = path.join(project_folder, "ypkg.toml");
-  const toml_data = TOML.parse(fs.readFileSync(toml_file, {encoding: "utf8"}));
+  const toml_data = TOML.parse(
+    fs.readFileSync(toml_file, { encoding: "utf8" }),
+  );
 
   const package_folder = path.join(project_folder, "packages");
   if (!fs.existsSync(package_folder)) fs.mkdirSync(package_folder);
@@ -51,7 +53,7 @@ export async function fetch(argv) {
     for (const [pkg_name, pkg_data] of Object.entries(toml_data.packages)) {
       // check if current package is in list of packages. if not, skip.
       // fetch all packages, if list of packages is empty.
-      if(argv.pkg.length > 0 && !argv.pkg.includes(pkg_name)) continue;
+      if (argv.pkg.length > 0 && !argv.pkg.includes(pkg_name)) continue;
 
       const unpack_into = path.join(package_folder, pkg_name);
       if (fs.existsSync(unpack_into)) continue;
@@ -89,15 +91,16 @@ export async function fetch(argv) {
       }
 
       // unpack source archive to project folder
-      const tmp_unpack = path.join(tmp_dir, pkg_name)
-      fs.mkdirSync(tmp_unpack)
+      const tmp_unpack = path.join(tmp_dir, pkg_name);
+      fs.mkdirSync(tmp_unpack);
       spawn("tar", ["xf", download_destination, "-C", tmp_unpack]);
 
-      const files = fs.readdirSync(tmp_unpack)
-      const from = files.length == 1 ? path.join(tmp_unpack, files[0]) : tmp_unpack
+      const files = fs.readdirSync(tmp_unpack);
+      const from =
+        files.length == 1 ? path.join(tmp_unpack, files[0]) : tmp_unpack;
 
-      fs.mkdirSync(unpack_into)
-      fs.cpSync(from, unpack_into, {recursive: true})
+      fs.mkdirSync(unpack_into);
+      fs.cpSync(from, unpack_into, { recursive: true });
     }
   } finally {
     // cleanup: remove temporary directory

@@ -1,6 +1,6 @@
 import { get_project_folder } from "./project.js";
 import { get_packages } from "./sync.js";
-import TOML from 'smol-toml'
+import TOML from "smol-toml";
 
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
@@ -14,7 +14,9 @@ export function add(pkgs) {
 
   const project_folder = get_project_folder();
   const toml_file = path.join(project_folder, "ypkg.toml");
-  const toml_data = TOML.parse(fs.readFileSync(toml_file, {encoding: "utf8"}));
+  const toml_data = TOML.parse(
+    fs.readFileSync(toml_file, { encoding: "utf8" }),
+  );
 
   for (const [pkg_name, pkg_data] of Object.entries(pkgs)) {
     var max_version = undefined;

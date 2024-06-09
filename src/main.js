@@ -45,7 +45,7 @@ try {
         "fetch [pkg...]",
         "download and extract packages",
         (yargs) => {},
-        async function(argv) {
+        async function (argv) {
           await fetch(argv);
         },
       )
@@ -64,8 +64,7 @@ try {
         function (argv) {
           update(argv);
         },
-      )
-      .argv;
+      ).argv;
   }
 } catch (errors) {
   if (errors.constructor !== Array) errors = [errors];
