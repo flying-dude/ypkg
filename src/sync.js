@@ -23,6 +23,7 @@ export function verify() {
   if (status !== 0) throw "could not verify package repo signature";
 }
 
+// wrapper around child_process.spawnSync() that throws an error in case of non-zero exit status
 export function spawn(cmd, args, options) {
   options = options ?? { stdio: "inherit" };
   const { status } = child_process.spawnSync(cmd, args, options);

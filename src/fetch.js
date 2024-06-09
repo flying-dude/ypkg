@@ -1,5 +1,6 @@
 import { get_project_folder } from "./project.js";
 import { spawn } from "./sync.js";
+import { add } from "./add.js";
 import TOML from 'smol-toml'
 
 import { createRequire } from "module";
@@ -30,7 +31,9 @@ export function get_extension(url) {
 }
 
 // download and extract all packages specified in ypkg.toml
-export async function fetch() {
+export async function fetch(argv) {
+  argv.pkg = argv.pkg ?? []
+  add(argv.pkg)
   fs.mkdirSync(downloads_folder, { recursive: true });
 
   const project_folder = get_project_folder();
@@ -46,6 +49,10 @@ export async function fetch() {
   // download packages
   try {
     for (const [pkg_name, pkg_data] of Object.entries(toml_data.packages)) {
+      // check if current package is in list of packages. if not, skip.
+      // fetch all packages, if list of packages is empty.
+      if(argv.pkg.length > 0 && !argv.pkg.includes(pkg_name)) continue;
+
       const unpack_into = path.join(package_folder, pkg_name);
       if (fs.existsSync(unpack_into)) continue;
 

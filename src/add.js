@@ -9,8 +9,8 @@ const fs = require("node:fs");
 const path = require("node:path");
 const semver = require("semver");
 
-export function add(argv) {
-  const pkgs = get_packages(argv.pkg);
+export function add(pkgs) {
+  pkgs = get_packages(pkgs);
 
   const project_folder = get_project_folder();
   const toml_file = path.join(project_folder, "ypkg.toml");

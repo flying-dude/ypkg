@@ -12,7 +12,6 @@ ypkg <cmd> [args]
 
 Commands:
   ypkg init    create a new cmake project
-  ypkg add     add a package to ypkg.toml
   ypkg fetch   download and extract packages
   ypkg sync    synchronize package repo (git pull)
   ypkg update  update project packages
@@ -54,10 +53,13 @@ The sources are downloaded and extracted into your project folder.
 Otherwise this tool is non-invasive and you have to integrate the sources into your build workflow manually.
 
 ```
-$ ypkg add tomlplusplus nlohmann-json
+$ ypkg fetch tomlplusplus nlohmann-json
 
-./packages/tomlplusplus/
-./packages/nlohmann-json/
+./packages/tomlplusplus/CMakeLists.txt
+...
+
+./packages/nlohmann-json/CMakeLists.txt
+...
 ```
 
 After the previous command, the following lines are inside `ypkg.toml`:

@@ -42,19 +42,11 @@ try {
         },
       )
       .command(
-        "add <pkg...>",
-        "add a package to ypkg.toml",
-        (yargs) => {},
-        function (argv) {
-          add(argv);
-        },
-      )
-      .command(
-        "fetch",
+        "fetch [pkg...]",
         "download and extract packages",
         (yargs) => {},
         async function(argv) {
-          await fetch();
+          await fetch(argv);
         },
       )
       .command(
