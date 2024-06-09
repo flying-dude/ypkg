@@ -1,6 +1,6 @@
 {
   "name": "ypkg",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "a simple c++ package downloader",
   "main": "src/main.js",
   "bin": {
