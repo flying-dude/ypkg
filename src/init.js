@@ -1,11 +1,17 @@
+import chalk from "chalk";
+
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 
 const fs = require("fs");
 
 function create_file(file, content) {
-  if (fs.existsSync(file)) throw "file already exists: " + file;
-  fs.writeFileSync(file, content);
+  if (fs.existsSync(file))
+    console.error(`[${chalk.yellow("warn")}]`, "file already exists: " + file);
+  else {
+    console.error(`[${chalk.green("info")}]`, "created file: " + file);
+    fs.writeFileSync(file, content);
+  }
 }
 
 export function init() {
